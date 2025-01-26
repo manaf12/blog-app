@@ -10,19 +10,25 @@ import 'dotenv/config'
 
 
 const app = express();
-
-app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
-  methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'],
-  allowedHeaders: [
-    'Content-Type', 
-    'Authorization', 
-    'Clerk-Auth',
-    'X-Requested-With'
-  ],
-  credentials: true,
-  maxAge: 86400
-}));
+const allowedOrigins = [
+  process.env.CLIENT_URL, 
+  "http://localhost:5173" 
+];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization", "Clerk-Auth", "X-Requested-With"],
+    credentials: true,
+    maxAge: 86400,
+  })
+);
 app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
 app.use(express.json());
