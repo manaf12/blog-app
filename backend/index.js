@@ -8,7 +8,21 @@ import { clerkMiddleware, requireAuth } from "@clerk/express";
 import cors from "cors";
 import 'dotenv/config'
 
+const requiredEnvVars = [
+  'MONGO_URI',
+  'CLERK_SECRET_KEY',
+  'CLIENT_URL',
+  'IK_URL_ENDPOINT',
+  'IK_PUBLIC_KEY',
+  'IK_PRIVATE_KEY'
+];
 
+requiredEnvVars.forEach(varName => {
+  if (!process.env[varName]) {
+    console.error(`❌ Missing required environment variable: ${varName}`);
+    process.exit(1);
+  }
+});
 const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL, 
@@ -16,31 +30,38 @@ const allowedOrigins = [
 ];
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization", "Clerk-Auth", "X-Requested-With"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Clerk-Auth",
+      "X-Requested-With",
+      "Origin" 
+    ],
     credentials: true,
     maxAge: 86400,
   })
 );
+app.use(express.json());
 app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
-app.use(express.json());
-
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'OK',
+    dbState: mongoose.connection.readyState,
+    memoryUsage: process.memoryUsage(),
+    uptime: process.uptime()
+  });
 });
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 
 app.use("/users", userRouter);
@@ -61,3 +82,4 @@ app.listen(3000,"0.0.0.0", () => {
   connectDB();
   console.log("Server is running!");
 });
+
