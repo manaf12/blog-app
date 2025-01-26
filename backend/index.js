@@ -9,7 +9,7 @@ import cors from "cors";
 import 'dotenv/config'
 
 const requiredEnvVars = [
-  'MONGO_URI',
+  'MONGO',
   'CLERK_SECRET_KEY',
   'CLIENT_URL',
   'IK_URL_ENDPOINT',
