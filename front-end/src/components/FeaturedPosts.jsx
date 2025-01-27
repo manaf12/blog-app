@@ -77,7 +77,7 @@ const FeaturedPosts = () => {
                   <span className="text-gray-500 text-sm">{format(post.createdAt)}</span>
                 </div>
                 <Link
-                  to={post.slug}
+                  to={`/${post.slug}`}
                   className="text-base sm:text-lg md:text-2xl lg:text-xl xl:text-2xl font-medium hover:text-blue-800 transition-colors"
                   onClick={() => console.log(`Clicked on post: ${post.title}`)}
               >
