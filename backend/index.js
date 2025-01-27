@@ -44,7 +44,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(clerkMiddleware());
+// app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
 app.get('/health', (req, res) => {
   res.json({
