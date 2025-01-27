@@ -31,7 +31,15 @@ const allowedOrigins = [
 ];
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: [
       "Content-Type",
@@ -44,6 +52,7 @@ app.use(
     maxAge: 86400,
   })
 );
+app.use(cors({ origin: "*" }))
 app.use(express.json());
 // app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
