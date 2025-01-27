@@ -27,11 +27,13 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL, 
   "http://localhost:5173",
+  "https://blog-app-manafs-projects-7a962bb5.vercel.app",
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
+      console.log("Incoming origin:", origin);
       if (!origin) 
         {
           console.log("Empty Origin")
@@ -55,7 +57,7 @@ app.use(
     maxAge: 86400,
   })
 );
-
+// app.use(cors({ origin: "*" }))
 app.options("*", cors());
 app.use(express.json());
 app.use(clerkMiddleware());
@@ -69,7 +71,14 @@ app.get('/health', (req, res) => {
   });
 });
 
-
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 
 app.use("/users", userRouter);
