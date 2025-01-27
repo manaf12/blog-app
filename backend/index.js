@@ -26,7 +26,8 @@ requiredEnvVars.forEach(varName => {
 const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL, 
-  "http://localhost:5173" 
+  "http://localhost:5173",
+  "https://blog-app-manafs-projects-7a962bb5.vercel.app",
 ];
 app.use(
   cors({
@@ -54,6 +55,7 @@ app.get('/health', (req, res) => {
     uptime: process.uptime()
   });
 });
+
 // app.use(function (req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header(
