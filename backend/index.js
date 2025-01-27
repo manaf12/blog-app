@@ -27,7 +27,7 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL, 
   "http://localhost:5173",
-  // "https://blog-app-manafs-projects-7a962bb5.vercel.app",
+  "https://blog-app-manafs-projects-7a962bb5.vercel.app",
 ];
 
 app.use(
@@ -60,7 +60,7 @@ app.use(
 // app.use(cors({ origin: "*" }))
 app.options("*", cors());
 app.use(express.json());
-// app.use(clerkMiddleware());
+app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
 app.get('/health', (req, res) => {
   res.json({
