@@ -22,7 +22,7 @@ const Navbar = () => {
         >
           {/* Change Hamburger Icon */}
           {/* {open ? "X" : "☰"} */}
-          <div className="flex flex-col gap-[5.4px]">
+          <div className="flex flex-col gap-[5.4px] ">
             <div
               className={`h-[3px] rounded-md w-6 bg-black origin-left transition-all ease-in-out ${
                 open && "rotate-45"
@@ -42,7 +42,7 @@ const Navbar = () => {
         </div>
         {/* MOBILE LINK LIST */}
         <div
-          className={`w-full h-screen bg-[#e6e6ff] flex flex-col items-center justify-center gap-8 font-medium text-lg absolute top-16 transition-all ease-in-out ${
+          className={`w-full h-screen z-50 bg-[#e6e6ff] flex flex-col items-center justify-center gap-8 font-medium text-lg absolute top-16 transition-all ease-in-out ${
             open ? "-right-0" : "-right-[100%]"
           }`}
         >
