@@ -27,11 +27,13 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL, 
   "http://localhost:5173",
-  "https://blog-app-manafs-projects-7a962bb5.vercel.app",
+  // "https://blog-app-manafs-projects-7a962bb5.vercel.app",
 ];
+
 app.use(
   cors({
     origin: (origin, callback) => {
+      console.log("Incoming origin:", origin);
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
@@ -52,7 +54,8 @@ app.use(
     maxAge: 86400,
   })
 );
-app.use(cors({ origin: "*" }))
+// app.use(cors({ origin: "*" }))
+app.options("*", cors());
 app.use(express.json());
 // app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
