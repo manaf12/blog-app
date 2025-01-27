@@ -58,7 +58,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} 
+    domain="joint-polecat-58.clerk.accounts.dev"
+    >
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <ToastContainer position="bottom-right" />
