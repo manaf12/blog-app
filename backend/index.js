@@ -56,7 +56,7 @@ app.use(
   })
 );
 
-
+app.options("*", cors());
 app.use(express.json());
 app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
@@ -68,6 +68,7 @@ app.get('/health', (req, res) => {
     uptime: process.uptime()
   });
 });
+
 
 
 
