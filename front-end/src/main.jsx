@@ -60,8 +60,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} 
     // domain="joint-polecat-58.clerk.accounts.dev"
+    domain="https://blog-app-manafs-projects-7a962bb5.vercel.app/login"
       signInUrl="/sign-in"
-      signUpUrl="/sign-up"
+      signUpUrl="/register"
     >
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
