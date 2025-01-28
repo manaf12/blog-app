@@ -61,7 +61,7 @@ createRoot(document.getElementById("root")).render(
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} 
     // domain="joint-polecat-58.clerk.accounts.dev"
       signInUrl="/sign-in"
-      signUpUrl="/register"
+      signUpUrl="/sign-up"
     >
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
