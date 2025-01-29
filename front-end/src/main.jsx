@@ -58,11 +58,8 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} 
-      domain="blog-app-manafs-projects-7a962bb5.vercel.app"
       signInUrl="/login"
       signUpUrl="/register"
-      isSatellite={true}
-
     >
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
