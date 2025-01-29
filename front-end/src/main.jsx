@@ -17,7 +17,6 @@ import "react-toastify/dist/ReactToastify.css"
 const queryClient = new QueryClient();
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-console.log(PUBLISHABLE_KEY)
 
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -59,10 +58,8 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} 
-    // domain="joint-polecat-58.clerk.accounts.dev"
-    domain="https://blog-app-manafs-projects-7a962bb5.vercel.app/login"
-      signInUrl="/sign-in"
-      signUpUrl="/register"
+      domain="blog-app-manafs-projects-7a962bb5.vercel.app"
+      isSatellite={true}
     >
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
