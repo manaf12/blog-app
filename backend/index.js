@@ -70,10 +70,10 @@ app.options("*", cors());
 
 
 
+app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
 
 app.use(express.json());
-app.use(clerkMiddleware());
 
 app.get('/health', (req, res) => {
   res.json({
