@@ -30,7 +30,7 @@ export const clerkWebHook = async (req, res) => {
     });
   }
 
- 
+  if (!evt) return;
 
   if (evt.type === "user.created") {
     console.log("User created event data:", evt.data);
