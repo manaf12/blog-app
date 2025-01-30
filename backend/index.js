@@ -52,17 +52,16 @@ app.use(
       }
     },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    // allowedHeaders: [
-    //   "Content-Type",
-    //   "Authorization",
-    //   "svix-id",        
-    //   "svix-timestamp", 
-    //   "svix-signature",
-    //   "Clerk-Auth",
-    //   "X-Requested-With",
-    //   "Origin" 
-    // ],
-    allowedHeaders:["*"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "svix-id",        
+      "svix-timestamp", 
+      "svix-signature",
+      "Clerk-Auth",
+      "X-Requested-With",
+      "Origin" 
+    ],
     credentials: true,
     maxAge: 86400,
   })
