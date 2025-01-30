@@ -30,7 +30,10 @@ export const clerkWebHook = async (req, res) => {
     });
   }
 
-  if (!evt) return;
+  if (!evt) {
+    return res.status(400).json({ error: "No event parsed after verification" });
+
+  };
 
   if (evt.type === "user.created") {
     console.log("User created event data:", evt.data);
@@ -43,9 +46,10 @@ export const clerkWebHook = async (req, res) => {
 
     try {
       await newUser.save();
-      console.log("New user saved:", newUser);
+      res.status(200).json("user_created")
     } catch (err) {
-      console.error("Error saving user:", err);
+     
+      res.status(400).json("error in creating user ", err)
     }  }
 
   if (evt.type === "user.deleted") {
