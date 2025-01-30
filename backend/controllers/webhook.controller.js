@@ -10,8 +10,14 @@ export const clerkWebHook = async (req, res) => {
     throw new Error("Webhook secret needed!");
   }
 
-  const payload = req.body;
-  const headers = req.headers;
+  const payload = req.body.toString();
+  const headers = {
+    "svix-id": req.headers["svix-id"],
+    "svix-timestamp": req.headers["svix-timestamp"],
+    "svix-signature": req.headers["svix-signature"]
+  }
+  // const payload = req.body;
+  // const headers = req.headers;
 
   const wh = new Webhook(WEBHOOK_SECRET);
   let evt;

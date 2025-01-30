@@ -14,7 +14,9 @@ const requiredEnvVars = [
   'CLIENT_URL',
   'IK_URL_ENDPOINT',
   'IK_PUBLIC_KEY',
-  'IK_PRIVATE_KEY'
+  'IK_PRIVATE_KEY',
+  'CLERK_WEBHOOK_SECRET',
+
 ];
 
 requiredEnvVars.forEach(varName => {
@@ -23,12 +25,16 @@ requiredEnvVars.forEach(varName => {
     process.exit(1);
   }
 });
+
+
 const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL, 
   "http://localhost:5173",
   "https://blog-app-manafs-projects-7a962bb5.vercel.app",
 ];
+
+
 
 app.use(
   cors({
@@ -49,6 +55,9 @@ app.use(
     allowedHeaders: [
       "Content-Type",
       "Authorization",
+      "svix-id",        
+      "svix-timestamp", 
+      "svix-signature",
       "Clerk-Auth",
       "X-Requested-With",
       "Origin" 
@@ -57,11 +66,15 @@ app.use(
     maxAge: 86400,
   })
 );
-// app.use(cors({ origin: "*" }))
 app.options("*", cors());
+
+
+
+app.use("/webhooks", webhookRouter);
+
 app.use(express.json());
 app.use(clerkMiddleware());
-app.use("/webhooks", webhookRouter);
+
 app.get('/health', (req, res) => {
   res.json({
     status: 'OK',
@@ -70,16 +83,6 @@ app.get('/health', (req, res) => {
     uptime: process.uptime()
   });
 });
-
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
-
 
 app.use("/users", userRouter);
 app.use("/posts", postRouter);

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post(
   "/clerk",
-  bodyParser.raw({ type: "application/json" }),
+  express.raw({ type: "application/json" }),
   clerkWebHook
 );
 
