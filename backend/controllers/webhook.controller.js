@@ -49,10 +49,12 @@ export const clerkWebHook = async (req, res) => {
     try {
       await newUser.save();
       console.log("userSaved")
-      return res.status(200).json("user_created");
-    } catch (err) {
-      return res.status(400).json({ error: "Error creating user", details: err });
-    }  }
+      return res.status(201).json({ success: true, user: newUser });
+        }
+         catch (err) {
+          return res.status(500).json({ error: "DB write failed", details: err.message });    
+        } 
+       }
 
   if (evt.type === "user.deleted") {
     const deletedUser = await User.findOneAndDelete({
