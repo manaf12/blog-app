@@ -8,6 +8,9 @@ body {
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
 }
+html,body{
+  max-width: 100%;
+}
 
 .animatedButton{
   animation-duration: 10000ms;
@@ -61,13 +64,13 @@ body {
   animation: fade-in-up 0.6s ease-out forwards;
 }
 
-.animate-slide-in-right {
+/* .animate-slide-in-right {
   animation: slide-in-right 0.6s ease-out forwards;
 }
 
 .animate-slide-in-left {
   animation: slide-in-left 0.6s ease-out forwards;
-}
+} */
 
 .animate-fade-in {
   animation: fade-in 0.6s ease-out forwards;
