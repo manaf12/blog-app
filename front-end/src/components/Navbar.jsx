@@ -42,8 +42,8 @@ const Navbar = () => {
         </div>
         {/* MOBILE LINK LIST */}
         <div
-          className={`w-full h-screen z-50 bg-[#e6e6ff] flex flex-col items-center justify-center gap-8 font-medium text-lg absolute top-16 transition-all ease-in-out ${
-            open ? "-right-0" : "-right-[100%]"
+          className={`w-screen h-screen z-50 bg-[#e6e6ff] flex flex-col items-center justify-center gap-8 font-medium text-lg absolute top-16 left-0 transition-all ease-in-out ${
+    open ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
           <Link to="/" onClick={()=>setOpen(false)}>Home</Link>
