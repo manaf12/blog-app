@@ -44,22 +44,14 @@ export const clerkWebHook = async (req, res) => {
       clerkUserId: evt.data.id,
       username: evt.data.username || evt.data.email_addresses[0].email_address,
       email: evt.data.email_addresses[0].email_address,
-      img: evt.data.profile_img_url,
-    });
+      img: evt.data.image_url || evt.data.profile_image_url    });
 
     try {
       await newUser.save();
-      res.status(201).json(
-        {
-            success:true,
-            event:evt.type,
-            msg:"UserSaved"
-        
-        })
       console.log("userSaved")
+      return res.status(200).json("user_created");
     } catch (err) {
-     
-      res.status(400).json("error in creating user ", err)
+      return res.status(400).json({ error: "Error creating user", details: err });
     }  }
 
   if (evt.type === "user.deleted") {
@@ -69,14 +61,8 @@ export const clerkWebHook = async (req, res) => {
 
     await Post.deleteMany({user:deletedUser._id})
     await Comment.deleteMany({user:deletedUser._id})
-    res.status(200).json({
-      success:true,
-      event:evt.type,
-      msg:"deleteduser",
-    })
+    return res.status(200).json("deleted user")
   }
 
-  // return res.status(200).json({
-  //   message: "Webhook received",
-  // });
+  return res.status(200).json({ message: "Event ignored" });
 };
