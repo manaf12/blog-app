@@ -5,7 +5,13 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [open]);
   return (
     <div className="w-full h-16 md:h-20 flex items-center justify-between">
       {/* LOGO */}
@@ -42,7 +48,7 @@ const Navbar = () => {
         </div>
         {/* MOBILE LINK LIST */}
         <div
-          className={`w-screen h-[calc(100vh-4rem)] z-50 bg-[#e6e6ff] flex flex-col items-center justify-top gap-8 font-medium text-lg absolute top-16 left-0 transition-all ease-in-out ${
+          className={`w-screen h-screen  z-50 bg-[#e6e6ff] flex flex-col items-center justify-center gap-8 font-medium text-lg absolute top-16 left-0 transition-all ease-in-out ${
     open ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
